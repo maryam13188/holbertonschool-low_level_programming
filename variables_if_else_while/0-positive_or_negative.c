@@ -3,16 +3,16 @@
 #include <time.h>
 
 /**
- * main - يخصص قيمة عشوائية للمتغير n ويطبع
- *        إذا كانت موجبة، صفر، أو سالبة
+ * main - assigns a random number to n and prints
+ *        whether it is positive, zero, or negative
  *
- * Return: 0 عند النجاح
+ * Return: 0 always (Success)
  */
 int main(void)
 {
     int n;
 
-    /* توليد رقم عشوائي */
+    /* generate random number */
     srand(time(0));
     n = rand() - RAND_MAX / 2;
 
