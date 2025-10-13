@@ -13,4 +13,12 @@ int main(void)
 	for (c = 'a'; c <= 'z'; c++)
 		putchar(c);
 
-	/* print upper*
+	/* print uppercase letters from 'A' to 'Z' */
+	for (c = 'A'; c <= 'Z'; c++)
+		putchar(c);
+
+	/* print newline at the end */
+	putchar('\n');
+
+	return (0);
+}
