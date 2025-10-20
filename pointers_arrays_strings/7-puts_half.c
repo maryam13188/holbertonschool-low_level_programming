@@ -1,15 +1,26 @@
 #include "main.h"
 
 /**
- * main - check the code
- *
- * Return: Always 0.
+ * puts_half - prints half of a string followed by a new line
+ * @str: input string
  */
-int main(void)
+void puts_half(char *str)
 {
-    char *str;
+    int len = 0, i;
 
-    str = "0123456789";
-    puts_half(str);
-    return (0);
+    /* calculate the length of the string */
+    while (str[len] != '\0')
+        len++;
+
+    /* determine the starting index of the second half */
+    i = (len % 2 == 0) ? (len / 2) : ((len + 1) / 2);
+
+    /* print characters from the middle to the end */
+    while (i < len)
+    {
+        _putchar(str[i]);
+        i++;
+    }
+
+    _putchar('\n');
 }
