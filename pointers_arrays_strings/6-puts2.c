@@ -1,15 +1,15 @@
 #include "main.h"
 
 /**
- * puts2 - prints every other character of a string
- * @str: input string
+ * main - check the code
+ *
+ * Return: Always 0.
  */
-void puts2(char *str)
+int main(void)
 {
-	int i;
+    char *str;
 
-	for (i = 0; str[i] != '\0'; i += 2)
-		_putchar(str[i]);
-
-	_putchar('\n');
+    str = "0123456789";
+    puts2(str);
+    return (0);
 }
