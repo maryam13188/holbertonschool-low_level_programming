@@ -2,17 +2,13 @@
 
 /**
  * puts2 - prints every other character of a string
- * @str: string to print
+ * @str: input string
  */
 void puts2(char *str)
 {
-    int i = 0;
+	int i;
 
-    while (str[i] != '\0')
-    {
-        if (i % 2 == 0)
-            _putchar(str[i]);
-        i++;
-    }
-    _putchar('\n');
+	for (i = 0; str[i] != '\0'; i += 2)
+		_putchar(str[i]);
+	_putchar('\n');
 }
