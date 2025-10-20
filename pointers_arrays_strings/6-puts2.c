@@ -8,7 +8,7 @@ void puts2(char *str)
 {
 	int i;
 
-	for (i = 0; str[i] != '\0'; i += 2)
+	for (i = 0; str[i] != '\0'; i += 2) /* كل حرف ثاني */
 		_putchar(str[i]);
-	_putchar('\n');
+	_putchar('\n'); /* سطر جديد بعد الانتهاء */
 }
