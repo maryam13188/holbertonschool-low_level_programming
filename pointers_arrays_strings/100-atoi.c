@@ -1,44 +1,37 @@
 #include "main.h"
 
 /**
- * _atoi - converts a string to an integer
- * @s: input string
- *
- * Return: the integer value of the string
- */
+* _atoi - converts a string to an integer
+* @s: input string
+*
+* Description: This function extracts the first number found in the string.
+* It handles multiple '+' and '-' signs before the number.
+* If there are no numbers in the string, it returns 0.
+*
+* Return: the integer value converted from the string
+*/
 int _atoi(char *s)
 {
-	int i = 0, sign = 1, num = 0;
+int i = 0, sign = 1, result = 0;
 
-	while (s[i] != '\0')
-	{
-		if (s[i] == '-')
-			sign *= -1;
-		else if (s[i] >= '0' && s[i] <= '9')
-		{
-			/* accumulate number safely */
-			while (s[i] >= '0' && s[i] <= '9')
-			{
-				/* check potential overflow before multiplying */
-				if (num > 214748364)
-				{
-					num = (sign == 1) ? 2147483647 : -2147483648;
-					return (num);
-				}
-				else if (num == 214748364)
-				{
-					if ((s[i] - '0') > 7 && sign == 1)
-						return (2147483647);
-					if ((s[i] - '0') > 8 && sign == -1)
-						return (-2147483648);
-				}
 
-				num = num * 10 + (s[i] - '0');
-				i++;
-			}
-			break;
-		}
-		i++;
-	}
-	return (num * sign);
+while (s[i] != '\0')
+{
+if (s[i] == '-')
+sign *= -1;
+else if (s[i] == '+')
+;
+else if (s[i] >= '0' && s[i] <= '9')
+break;
+i++;
 }
+
+while (s[i] >= '0' && s[i] <= '9')
+{
+result = result * 10 + (s[i] - '0');
+i++;
+}
+
+return (result * sign);
+}
+
