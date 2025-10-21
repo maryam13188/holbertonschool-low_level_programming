@@ -1,37 +1,42 @@
-#include "main.h"
-
-/**
-* _atoi - converts a string to an integer
-* @s: input string
-*
-* Description: This function extracts the first number found in the string.
-* It handles multiple '+' and '-' signs before the number.
-* If there are no numbers in the string, it returns 0.
-*
-* Return: the integer value converted from the string
-*/
-int _atoi(char *s)
-{
-int i = 0, sign = 1, result = 0;
+ "main.h"
 
 
-while (s[i] != '\0')
-{
-if (s[i] == '-')
-sign *= -1;
-else if (s[i] == '+')
-;
-else if (s[i] >= '0' && s[i] <= '9')
-break;
-i++;
-}
+ * _atoi - Converts a string to an integer
+ * @s: String to be converted
+ *
+ * Return: The integer value of the string, or 0 if no valid number is found
+ */
+ _atoi(char *s)
 
-while (s[i] >= '0' && s[i] <= '9')
-{
-result = result * 10 + (s[i] - '0');
-i++;
-}
+	int sign = 1;
+	int result = 0;
+	int i = 0;
+	int digit;
 
-return (result * sign);
-}
+	
+	while (s[i] && (s[i] < '0' || s[i] > '9'))
+	{
+		if (s[i] == '-')
+			sign *= -1;
+		else if (s[i] == '+')
+			sign *= 1;
+		i++;
+	}
+
+	
+	while (s[i] >= '0' && s[i] <= '9')
+	{
+		digit = s[i] - '0';
+		if (result > (2147483647 - digit) / 10)
+		{
+			if (sign == 1)
+				return (2147483647);
+			return (-2147483648);
+		}
+		result = result * 10 + digit;
+		i++;
+	}
+
+	return (sign * result);
+
 
