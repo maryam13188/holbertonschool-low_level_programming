@@ -9,23 +9,23 @@
  */
 char *_strncat(char *dest, char *src, int n)
 {
-    char *ptr = dest;
+	char *ptr = dest;
 
-    /* Find the end of dest */
-    while (*dest != '\0')
-        dest++;
+	/* Find the end of dest */
+	while (*dest != '\0')
+		dest++;
 
-    /* Copy at most n bytes from src */
-    while (n > 0 && *src != '\0')
-    {
-        *dest = *src;
-        dest++;
-        src++;
-        n--;
-    }
+	/* Copy at most n bytes from src */
+	while (n > 0 && *src != '\0')
+	{
+		*dest = *src;
+		dest++;
+		src++;
+		n--;
+	}
 
-    /* Add null terminator */
-    *dest = '\0';
+	/* Add null terminator */
+	*dest = '\0';
 
-    return (ptr);
+	return (ptr);
 }
