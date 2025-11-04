@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+int _putchar(char c);  /* ← أضف هذا السطر */
 int is_digit(char *s);
 int _strlen(char *s);
 void errors(void);
