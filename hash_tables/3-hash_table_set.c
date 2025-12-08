@@ -1,59 +1,45 @@
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 #include "hash_tables.h"
 
 /**
- * hash_table_set - Add or update an element in hash table
- * @ht: Hash table to add/update
- * @key: Key (cannot be empty)
- * @value: Value to associate with key
- *
- * Return: 1 on success, 0 on failure
+ * hash_table_set - Add element to hash table
+ * @ht: Hash table
+ * @key: Key
+ * @value: Value
+ * Return: 1 success, 0 failure
  */
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
-	hash_node_t *new;
-	char *val;
 	unsigned long int i;
-	hash_node_t *tmp;
+	hash_node_t *n;
+	char *v;
 
 	if (!ht || !key || !*key || !value)
 		return (0);
-
-	val = strdup(value);
-	if (!val)
+	v = strdup(value);
+	if (!v)
 		return (0);
-
-	i = key_index((const unsigned char *)key, ht->size);
-	tmp = ht->array[i];
-
-	while (tmp)
+	i = key_index((unsigned char *)key, ht->size);
+	n = ht->array[i];
+	while (n)
 	{
-		if (!strcmp(tmp->key, key))
+		if (!strcmp(n->key, key))
 		{
-			free(tmp->value);
-			tmp->value = val;
+			free(n->value);
+			n->value = v;
 			return (1);
 		}
-		tmp = tmp->next;
+		n = n->next;
 	}
-
-	new = malloc(sizeof(hash_node_t));
-	if (!new)
-	{
-		free(val);
-		return (0);
-	}
-	new->key = strdup(key);
-	if (!new->key)
-	{
-		free(new);
-		free(val);
-		return (0);
-	}
-	new->value = val;
-	new->next = ht->array[i];
-	ht->array[i] = new;
+	n = malloc(sizeof(hash_node_t));
+	if (!n)
+		return (free(v), 0);
+	n->key = strdup(key);
+	if (!n->key)
+		return (free(n), free(v), 0);
+	n->value = v;
+	n->next = ht->array[i];
+	ht->array[i] = n;
 	return (1);
 }
