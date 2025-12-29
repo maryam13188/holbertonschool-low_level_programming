@@ -55,7 +55,10 @@ void multiply(char *num1, char *num2)
     
     result = malloc(sizeof(int) * (len1 + len2));
     if (!result)
+    {
+        _puts("Error");
         exit(98);
+    }
     
     for (i = 0; i < len1 + len2; i++)
         result[i] = 0;
