@@ -1,58 +1,117 @@
 #include "main.h"
 #include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-/* الدوال المساعدة السابقة تبقى كما هي */
 
 /**
- * multiply - multiplies two positive numbers (improved version)
- * @s1: first number
- * @s2: second number
- *
- * Return: pointer to result string
+ * _puts - prints a string
+ * @str: string to print
  */
-char *multiply(char *s1, char *s2)
+void _puts(char *str)
 {
-	int len1, len2, len, i, j, carry, digit1, digit2, temp;
-	char *result;
+    while (*str)
+        _putchar(*str++);
+    _putchar('\n');
+}
 
-	len1 = _strlen(s1);
-	len2 = _strlen(s2);
-	len = len1 + len2;
-	
-	result = calloc(len + 1, sizeof(char));
-	if (result == NULL)
-		return (NULL);
+/**
+ * _isdigit - checks if a string contains only digits
+ * @str: string to check
+ * Return: 1 if all digits, 0 otherwise
+ */
+int _isdigit(char *str)
+{
+    while (*str)
+    {
+        if (*str < '0' || *str > '9')
+            return (0);
+        str++;
+    }
+    return (1);
+}
 
-	/* Initialize with zeros (calloc already does this) */
-	for (i = 0; i < len; i++)
-		result[i] = '0';
-	result[len] = '\0';
+/**
+ * _strlen - returns length of string
+ * @str: string
+ * Return: length
+ */
+int _strlen(char *str)
+{
+    int len = 0;
+    while (str[len])
+        len++;
+    return (len);
+}
 
-	/* Multiply each digit */
-	for (i = len1 - 1; i >= 0; i--)
-	{
-		carry = 0;
-		digit1 = s1[i] - '0';
+/**
+ * multiply - multiplies two numbers
+ * @num1: first number as string
+ * @num2: second number as string
+ */
+void multiply(char *num1, char *num2)
+{
+    int len1 = _strlen(num1);
+    int len2 = _strlen(num2);
+    int *result;
+    int i, j, carry, n1, n2, sum;
+    
+    result = malloc(sizeof(int) * (len1 + len2));
+    if (!result)
+        exit(98);
+    
+    for (i = 0; i < len1 + len2; i++)
+        result[i] = 0;
+    
+    for (i = len1 - 1; i >= 0; i--)
+    {
+        carry = 0;
+        n1 = num1[i] - '0';
+        
+        for (j = len2 - 1; j >= 0; j--)
+        {
+            n2 = num2[j] - '0';
+            sum = n1 * n2 + result[i + j + 1] + carry;
+            carry = sum / 10;
+            result[i + j + 1] = sum % 10;
+        }
+        
+        if (carry > 0)
+            result[i + j + 1] += carry;
+    }
+    
+    i = 0;
+    while (i < len1 + len2 && result[i] == 0)
+        i++;
+    
+    if (i == len1 + len2)
+        _putchar('0');
+    else
+        for (; i < len1 + len2; i++)
+            _putchar(result[i] + '0');
+    
+    _putchar('\n');
+    free(result);
+}
 
-		for (j = len2 - 1; j >= 0; j--)
-		{
-			digit2 = s2[j] - '0';
-			temp = (result[i + j + 1] - '0') + (digit1 * digit2) + carry;
-			result[i + j + 1] = (temp % 10) + '0';
-			carry = temp / 10;
-		}
-
-		/* Handle remaining carry */
-		while (carry > 0)
-		{
-			temp = (result[i + j + 1] - '0') + carry;
-			result[i + j + 1] = (temp % 10) + '0';
-			carry = temp / 10;
-			j--;
-		}
-	}
-
-	return (result);
+/**
+ * main - entry point
+ * @argc: argument count
+ * @argv: argument vector
+ * Return: 0 on success
+ */
+int main(int argc, char *argv[])
+{
+    if (argc != 3)
+    {
+        _puts("Error");
+        exit(98);
+    }
+    
+    if (!_isdigit(argv[1]) || !_isdigit(argv[2]))
+    {
+        _puts("Error");
+        exit(98);
+    }
+    
+    multiply(argv[1], argv[2]);
+    
+    return (0);
 }
